@@ -7,12 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Cache-zip
-        id: cache-zip
-        uses: actions/cache@v1
-        with:
-          path: export-dist
-          key: ${{ runner.os }}-export-dist        
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
         with:
@@ -39,9 +33,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: ls -la $GITHUB_WORKSPACE
-      - run: ls -la export-dist
+      - run: ls -la $GITHUB_WORKSPACE/simple-orm/
       - name: Export ORM Stack zip
         uses: actions/upload-artifact@v1
         with:
           name: orm.zip
-          path: export-dist/orm.zip
+          path: $GITHUB_WORKSPACE/simple-orm/export-dist/orm.zip
