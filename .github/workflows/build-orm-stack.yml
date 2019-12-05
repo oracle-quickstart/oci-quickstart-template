@@ -44,4 +44,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: orm.zip
-          path: /simple-orm/dist/orm.zip
+          path: /home/runner/work/oci-quickstart-template/simple-orm/dist/orm.zip
