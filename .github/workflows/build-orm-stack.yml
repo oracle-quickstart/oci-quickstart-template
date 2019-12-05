@@ -6,9 +6,13 @@ jobs:
     name: 'Generate ORM Stack Package'
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@master
-      - run: mkdir -p /export/dist
+      - uses: actions/checkout@v1
+      - name: Cache-zip
+        id: cache-zip
+        uses: actions/cache@v1
+        with:
+          path: export-dist
+          key: ${{ runner.os }}-export-dist        
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
         with:
@@ -31,11 +35,11 @@ jobs:
           tf_actions_version: 0.12.17
           tf_actions_subcommand: 'apply'
           tf_actions_working_dir: '/simple-orm/'
-          args: '-var="save_to"="/export/dist"'
+          args: '-var="save_to"="export-dist"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload ORM Stack Zip file
+      - name: Export ORM Stack zip
         uses: actions/upload-artifact@v1
         with:
           name: orm.zip
-          path: /export/dist/orm.zip
+          path: export-dist/orm.zip
