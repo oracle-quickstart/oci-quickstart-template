@@ -32,13 +32,6 @@ jobs:
           args: '-var="save_to"="export-dist"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: ls -la $GITHUB_WORKSPACE/simple-orm/export-dist
-      - run: echo $GITHUB_WORKSPACE
-      - name: Export ORM Stack zip
-        uses: actions/upload-artifact@v1
-        with:
-          name: orm.zip
-          path: /home/runner/work/oci-quickstart-template/oci-quickstart-template/simple-orm/export-dist/orm.zip
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -60,5 +53,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: /home/runner/work/oci-quickstart-template/oci-quickstart-template/simple-orm/export-dist/orm.zip
-          asset_name: orm.zip
+          asset_name: orm-stack.zip
           asset_content_type: application/zip
