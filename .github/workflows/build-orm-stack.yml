@@ -38,10 +38,11 @@ jobs:
           tf_actions_version: 0.12.17
           tf_actions_subcommand: 'apply'
           tf_actions_working_dir: '/simple-orm/'
+          args: '-var="save_to"="$HOME/export/"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload ORM Stack Zip file
         uses: actions/upload-artifact@v1
         with:
           name: orm.zip
-          path: /home/runner/work/oci-quickstart-template/simple-orm/dist/orm.zip
+          path: $HOME/export/dist/orm.zip
