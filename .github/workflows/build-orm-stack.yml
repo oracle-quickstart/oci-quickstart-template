@@ -1,4 +1,4 @@
-name: 'Build ORM Stack zip file - GitHub Actions'
+name: 'Generate OCI ORM Stack'
 
 on: [push, pull_request]
 jobs:
