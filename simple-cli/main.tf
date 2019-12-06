@@ -40,7 +40,7 @@ data "oci_identity_availability_domain" "ad" {
 resource "oci_core_instance" "simple-vm" {
   depends_on = [module.marketplace_subscription]
 
-  availability_domain = data.oci_identity_availability_domain.ad.name
+  availability_domain = (var.availability_domain_name != "" ? var.availability_domain_name : data.oci_identity_availability_domain.ad.name)
   compartment_id      = var.compartment_ocid
   display_name        = var.vm_display_name
   shape               = var.vm_compute_shape

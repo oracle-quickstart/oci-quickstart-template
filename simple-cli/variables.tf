@@ -45,7 +45,12 @@ variable "vm_compute_shape" {
   default     = "VM.Standard2.2" //2 cores
 }
 
-variable "availability_domain" {
+variable "availability_domain_name" {
+  default     = ""
+  description = "Availability Domain"
+}
+
+variable "availability_domain_number" {
   default     = 1
   description = "OCI Availability Domains: 1,2,3  (subject to region availability)"
 }
@@ -63,6 +68,7 @@ variable "network_strategy" {
 }
 
 variable "vcn_id" {
+  default = ""
 }
 
 variable "vcn_display_name" {
@@ -91,6 +97,7 @@ variable "subnet_span" {
 }
 
 variable "subnet_id" {
+  default = ""
 }
 
 variable "subnet_display_name" {

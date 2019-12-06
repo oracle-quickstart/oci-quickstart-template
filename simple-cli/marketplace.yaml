@@ -27,13 +27,14 @@ variableGroups:
       - region 
       - mp_listing_id
       - mp_listing_resource_id
-      - mp_listing_resource_version      
+      - mp_listing_resource_version   
+      - availability_domain_number          
 
   - title: "Compute Configuration"
     variables:
       - vm_display_name
       - vm_compute_shape
-      - availability_domain
+      - availability_domain_name
       - ssh_public_key
 
 
@@ -79,7 +80,7 @@ variables:
     description: The region in which to create all resources
     required: true
 
-  availability_domain:
+  availability_domain_name:
     type: oci:identity:availabilitydomain:name
     dependsOn:
       compartmentId: compartment_ocid
@@ -87,6 +88,11 @@ variables:
     default: 1
     title: Availability Domain
     description: Availability Domain
+
+  availability_domain_number:
+    type: string    
+    required: false    
+    description: Availability Domain Number (Not used)
 
   ssh_public_key:
     type: string
