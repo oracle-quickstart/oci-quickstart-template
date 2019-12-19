@@ -1,4 +1,4 @@
-name: 'simple-orm'
+name: 'simple-orm-stack'
 
 on: [push, pull_request]
 env:
@@ -15,7 +15,7 @@ jobs:
         with:
           tf_actions_version: 0.12.17
           tf_actions_subcommand: 'init'
-          tf_actions_working_dir: ${{PROJECT_WORKING_DIR}}
+          tf_actions_working_dir: ${{ env.PROJECT_WORKING_DIR }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Terraform Validate'
@@ -23,7 +23,7 @@ jobs:
         with:
           tf_actions_version: 0.12.17
           tf_actions_subcommand: 'validate'
-          tf_actions_working_dir: ${{PROJECT_WORKING_DIR}}
+          tf_actions_working_dir: ${{ env.PROJECT_WORKING_DIR }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Terraform Apply'
@@ -31,7 +31,7 @@ jobs:
         with:
           tf_actions_version: 0.12.17
           tf_actions_subcommand: 'apply'
-          tf_actions_working_dir: ${{PROJECT_WORKING_DIR}}
+          tf_actions_working_dir: ${{ env.PROJECT_WORKING_DIR }}
           args: '-var="save_to"="export-dist"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,6 +55,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}${{PROJECT_WORKING_DIR}}export-dist/orm.zip
+          asset_path: ${{ github.workspace }}${{ env.PROJECT_WORKING_DIR }}export-dist/orm.zip
           asset_name: orm-stack.zip
           asset_content_type: application/zip
