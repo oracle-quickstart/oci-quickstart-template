@@ -1,13 +1,13 @@
 ## Subscribe to Marketplace listing
 module "marketplace_subscription" {
-  source                      = "./terraform-modules/marketplace-subscription"
-  compartment_id              = var.compartment_ocid
+  source         = "./terraform-modules/marketplace-subscription"
+  compartment_id = var.compartment_ocid
   //listing id
-  mp_listing_id               = var.mp_listing_id 
+  mp_listing_id = var.mp_listing_id
   //listing resource version (app version)
   mp_listing_resource_version = var.mp_listing_resource_version
   //image ocid
-  mp_listing_resource_id      = var.mp_listing_resource_id
+  mp_listing_resource_id = var.mp_listing_resource_id
 }
 
 ## Creates a VCN with a public subnet and default IGW and Route Table
@@ -34,7 +34,7 @@ module "default_network_sec_group" {
 
 data "oci_identity_availability_domain" "ad" {
   compartment_id = var.tenancy_ocid
-  ad_number      = var.availability_domain
+  ad_number      = var.availability_domain_number
 }
 
 resource "oci_core_instance" "simple-vm" {
@@ -56,6 +56,11 @@ resource "oci_core_instance" "simple-vm" {
     source_type = "image"
     source_id   = var.mp_listing_resource_id
   }
+
+  metadata = {
+    ssh_authorized_keys = var.ssh_public_key
+  }
+
 
 }
 
