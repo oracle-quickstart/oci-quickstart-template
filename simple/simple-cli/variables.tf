@@ -132,8 +132,3 @@ variable "nsg_display_name" {
   description = "Network Security Groups - Name"
   default     = "simple-security-group"
 }
-
-variable "routetable_display_name" {
-  description = "Route table Name"
-  default     = "simple-route-table"
-}

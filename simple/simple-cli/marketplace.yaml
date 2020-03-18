@@ -57,8 +57,7 @@ variableGroups:
     variables:
       - compartment_ocid
       - nsg_whitelist_ip 
-      - nsg_display_name 
-      - routetable_display_name       
+      - nsg_display_name     
 
 variables:
   # Hidden variables
@@ -279,14 +278,6 @@ variables:
     default: my-network-security-group
     title: Network Security Group
     description: The name of the Network Security Group
-
-  routetable_display_name:
-    type: string
-    required: true
-    default: my-route-table
-    title: Route Table
-    description: The name of the Route Table
-
 
 outputGroups:
   - title: "Output"
