@@ -10,16 +10,23 @@ module "marketplace_subscription" {
   mp_listing_resource_id = var.mp_listing_resource_id
 }
 
+locals {
+  use_existing_network = var.network_strategy == "Use Existing VCN and Subnet" ? true : false
+}
+
 ## Creates a VCN with a public subnet and default IGW and Route Table
 module "default_vcn_plus_subnet" {
-  source              = "./terraform-modules/vcn-plus-subnet-default"
-  compartment_ocid    = var.compartment_ocid
-  vcn_display_name    = var.vcn_display_name
-  vcn_cidr_block      = var.vcn_cidr_block
-  vcn_dns_label       = var.vcn_dns_label
-  subnet_display_name = var.subnet_display_name
-  subnet_cidr_block   = var.subnet_cidr_block
-  subnet_dns_label    = var.subnet_dns_label
+  source               = "./terraform-modules/vcn-plus-subnet-default"
+  compartment_ocid     = var.compartment_ocid
+  use_existing_network = local.use_existing_network
+  vcn_id               = local.use_existing_network ? var.vcn_id : ""
+  subnet_id            = local.use_existing_network ? var.subnet_id : ""
+  vcn_display_name     = var.vcn_display_name
+  vcn_cidr_block       = var.vcn_cidr_block
+  vcn_dns_label        = var.vcn_dns_label
+  subnet_display_name  = var.subnet_display_name
+  subnet_cidr_block    = var.subnet_cidr_block
+  subnet_dns_label     = var.subnet_dns_label
 }
 
 ## Allow Ingress HTTPS from 
