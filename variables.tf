@@ -13,21 +13,26 @@ variable "region" {
 #  Marketplace Image      #
 ############################
 
+variable "enabled" {
+  type = bool
+  default = false
+}
+
 variable "mp_listing_id" {
   // default = "ocid1.appcataloglisting.oc1.."
-  default     = "ocid1.appcataloglisting.oc1..aaaaaaaapram7bsdh37gly4oavh42iqih6faoqqqmotpddyz4a44c4wgk7ja"
+  default     = ""
   description = "Marketplace Listing OCID"
 }
 
 variable "mp_listing_resource_id" {
   // default = "ocid1.image.oc1.."
-  default     = "ocid1.image.oc1..aaaaaaaa2es7kqqgmmjyymzdaaeqmmehrprg6gdjxs4on5lpzwiv64przksa"
+  default     = ""
   description = "Marketplace Listing Image OCID"
 }
 
 variable "mp_listing_resource_version" {
   // default = "1.0"
-  default     = "Oracle_Cloud_Developer_Image_19.11"
+  default     = ""
   description = "Marketplace Listing Package/Resource Version"
 }
 
@@ -51,8 +56,8 @@ variable "availability_domain_name" {
 }
 
 variable "availability_domain_number" {
-  default     = 1
-  description = "OCI Availability Domains: 1,2,3  (subject to region availability)"
+  default     = 0
+  description = "OCI Availability Domains: 0,1,2  (subject to region availability)"
 }
 
 variable "ssh_public_key" {
