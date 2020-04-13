@@ -69,6 +69,7 @@ variable "ssh_public_key" {
 ############################
 
 variable "network_strategy" {
+  #default = "Use Existing VCN and Subnet"
   default = "Create New VCN and Subnet"
 }
 
