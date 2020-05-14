@@ -4,10 +4,13 @@ resource "oci_core_instance" "simple-vm" {
   display_name        = var.vm_display_name
   shape               = var.vm_compute_shape
 
-  shape_config {
-    #required for VM.Standard.E3.Flex shape
-    ocpus = var.vm_compute_shape_ocpus
+  dynamic "shape_config" {
+    for_each = local.is_flex_shape
+      content {
+        ocpus = shape_config.value
+      }
   }
+  
 
   create_vnic_details {
     subnet_id              = local.use_existing_network ? var.subnet_id : oci_core_subnet.simple_subnet[0].id
