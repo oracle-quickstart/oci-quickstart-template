@@ -24,13 +24,13 @@ resource "oci_core_network_security_group_security_rule" "simple_rule_ssh_ingres
   network_security_group_id = oci_core_network_security_group.simple_nsg.id
   protocol                  = "6"
   direction                 = "INGRESS"
-  source                    = "0.0.0.0/0"
+  source                    = var.nsg_source_cidr
   stateless                 = false
 
   tcp_options {
     destination_port_range {
-      min = 22
-      max = 22
+      min = var.nsg_ssh_port
+      max = var.nsg_ssh_port
     }
   }
 }
@@ -40,13 +40,13 @@ resource "oci_core_network_security_group_security_rule" "simple_rule_https_ingr
   network_security_group_id = oci_core_network_security_group.simple_nsg.id
   protocol                  = "6"
   direction                 = "INGRESS"
-  source                    = "0.0.0.0/0"
+  source                    = var.nsg_source_cidr
   stateless                 = false
 
   tcp_options {
     destination_port_range {
-      min = 443
-      max = 443
+      min = var.nsg_https_port
+      max = var.nsg_https_port
     }
   }
 }
@@ -56,13 +56,13 @@ resource "oci_core_network_security_group_security_rule" "simple_rule_http_ingre
   network_security_group_id = oci_core_network_security_group.simple_nsg.id
   protocol                  = "6"
   direction                 = "INGRESS"
-  source                    = "0.0.0.0/0"
+  source                    = var.nsg_source_cidr
   stateless                 = false
 
   tcp_options {
     destination_port_range {
-      min = 80
-      max = 80
+      min = var.nsg_http_port
+      max = var.nsg_http_port
     }
   }
 }

@@ -59,9 +59,10 @@ variable "vm_compute_shape" {
   default     = "VM.Standard2.2" //2 cores
 }
 
+# only used for E3 Flex shape
 variable "vm_compute_shape_ocpus" {
   description = "Number of OCPUs"
-  default = 2 //for 2 cores, change accordingly
+  default = 1 
 }
 
 variable "availability_domain_name" {
@@ -148,6 +149,21 @@ variable "nsg_display_name" {
 variable "nsg_source_cidr" {
   description = "Allowed Ingress Traffic (CIDR Block)"
   default     = "0.0.0.0/0"
+}
+
+variable "nsg_ssh_port" {
+  description = "SSH Port"
+  default     = 22
+}
+
+variable "nsg_https_port" {
+  description = "HTTPS Port"
+  default     = 443
+}
+
+variable "nsg_http_port" {
+  description = "HTTP Port"
+  default     = 80
 }
 
 ############################
