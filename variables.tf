@@ -1,4 +1,5 @@
 #Variables declared in this file must be declared in the marketplace.yaml
+#Provide a description to your variables.
 
 ############################
 #  Hidden Variable Group   #
@@ -9,13 +10,13 @@ variable "tenancy_ocid" {
 variable "region" {
 }
 
-############################
-#  Marketplace Image      #
-############################
-
-variable "enabled" {
-  type = bool
-  default = false
+###############################################################################
+#  Marketplace Image Listing - information available in the Partner portal    #
+###############################################################################
+variable "mp_subscription_enabled" {
+  description = "Subscribe to Marketplace listing?"
+  type        = bool
+  default     = false
 }
 
 variable "mp_listing_id" {
@@ -37,17 +38,30 @@ variable "mp_listing_resource_version" {
 }
 
 ############################
+#  Custom Image           #
+############################
+variable "custom_image_id" {
+  default     = "ocid1.image.oc1...."
+  description = "Custom Image OCID"
+}
+
+############################
 #  Compute Configuration   #
 ############################
 
 variable "vm_display_name" {
   description = "Instance Name"
-  default     = "simple"
+  default     = "simple-vm"
 }
 
 variable "vm_compute_shape" {
   description = "Compute Shape"
   default     = "VM.Standard2.2" //2 cores
+}
+
+variable "vm_compute_shape_ocpus" {
+  description = "Number of OCPUs"
+  default = 2 //for 2 cores, change accordingly
 }
 
 variable "availability_domain_name" {
@@ -56,12 +70,17 @@ variable "availability_domain_name" {
 }
 
 variable "availability_domain_number" {
-  default     = 0
-  description = "OCI Availability Domains: 0,1,2  (subject to region availability)"
+  default     = 1
+  description = "OCI Availability Domains: 1,2,3  (subject to region availability)"
 }
 
 variable "ssh_public_key" {
   description = "SSH Public Key"
+}
+
+variable "hostname_label" {
+  default     = "simple"
+  description = "DNS Hostname Label. Must be unique across all VNICs in the subnet and comply with RFC 952 and RFC 1123."
 }
 
 ############################
@@ -89,17 +108,14 @@ variable "vcn_cidr_block" {
 
 variable "vcn_dns_label" {
   description = "VCN DNS Label"
-  default     = "simple"
+  default     = "simplevcn"
 }
 
 variable "subnet_type" {
   description = "Choose between private and public subnets"
-  default     = "Use Public Subnet"
-}
-
-variable "subnet_span" {
-  description = "Choose between regional and AD specific subnets"
-  default     = "Regional Subnet"
+  default     = "Public Subnet"
+  #or  
+  #default     = "Private Subnet"
 }
 
 variable "subnet_id" {
@@ -118,23 +134,69 @@ variable "subnet_cidr_block" {
 
 variable "subnet_dns_label" {
   description = "Subnet DNS Label"
-  default     = "management"
+  default     = "simplesubnet"
+}
+
+############################
+# Security Configuration #
+############################
+variable "nsg_display_name" {
+  description = "Network Security Group Name"
+  default     = "simple-network-security-group"
+}
+
+variable "nsg_source_cidr" {
+  description = "Allowed Ingress Traffic (CIDR Block)"
+  default     = "0.0.0.0/0"
 }
 
 ############################
 # Additional Configuration #
 ############################
 
-variable "compartment_ocid" {
-  description = "Compartment where infrastructure resources will be created"
+variable "compute_compartment_ocid" {
+  description = "Compartment where Compute and Marketplace subscription resources will be created"
 }
 
-variable "nsg_whitelist_ip" {
-  description = "Network Security Groups - Whitelisted CIDR block for ingress communication: Enter 0.0.0.0/0 or <your IP>/32"
-  default     = "0.0.0.0/0"
+variable "network_compartment_ocid" {
+  description = "Compartment where Network resources will be created"
 }
 
-variable "nsg_display_name" {
-  description = "Network Security Groups - Name"
-  default     = "simple-security-group"
+variable "tag_key_name" {
+  description = "Free-form tag key name"
+  default     = "oracle-quickstart"
+}
+
+variable "tag_value" {
+  description = "Free-form tag value"
+  default     = "oci-quickstart-template"
+}
+
+
+######################
+#    Enum Values     #
+######################
+variable "network_strategy_enum" {
+  type = map
+  default = {
+    CREATE_NEW_VCN_SUBNET   = "Create New VCN and Subnet"
+    USE_EXISTING_VCN_SUBNET = "Use Existing VCN and Subnet"
+  }
+}
+
+variable "subnet_type_enum" {
+  type = map
+  default = {
+    PRIVATE_SUBNET = "Private Subnet"
+    PUBLIC_SUBNET  = "Public Subnet"
+  }
+}
+
+variable "nsg_config_enum" {
+  type = map
+  default = {
+    BLOCK_ALL_PORTS = "Block all ports"
+    OPEN_ALL_PORTS  = "Open all ports"
+    CUSTOMIZE       = "Customize ports - Post deployment"
+  }
 }
