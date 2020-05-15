@@ -171,3 +171,51 @@ Archive:  dist/orm.zip
 |Apply                       | `terraform apply` is used to apply the changes required to reach the desired state of the configuration described by the template.|
 |Destroy                     | `terraform destroy` is used to destroy the Terraform-managed infrastructure.|
 
+## Customize for Marketplace
+
+In case you wanted to make changes to this template to use a Marketplace image rather than a platform image or custom image, you need to make the following changes.
+
+1. Configure Marketplace listing variables on [`variables.tf`](./variables.tf).
+
+|      VARIABLES             |           DESCRIPTION                                                 |
+|----------------------------|-----------------------------------------------------------------------|
+|mp_subscription_enabled     | Enable subscription to Marketplace.|
+|mp_listing_id               | Marketplace App Catalog Listing OCID.|
+|mp_listing_resource_id      | Marketplace Listing Image OCID.|
+|mp_listing_resource_version | Marketplace Listing Package/Resource Version (Reference value)|
+
+2. Modify [`compute.tf`](./compute.tf) set `source_details` to refer to `local.compute_image_id` rather than `platform_image_id`. The `local.compute_image_id` holds the logic to either refer to the marketplace image or a custom image, based on the `mp_subscription_enabled` flag.
+
+```bash
+resource "oci_core_instance" "simple-vm" {
+  availability_domain = local.availability_domain
+  compartment_id      = var.compute_compartment_ocid
+  display_name        = var.vm_display_name
+  shape               = var.vm_compute_shape
+
+  dynamic "shape_config" {
+    for_each = local.is_flex_shape
+      content {
+        ocpus = shape_config.value
+      }
+  }
+  
+
+  create_vnic_details {
+    subnet_id              = local.use_existing_network ? var.subnet_id : oci_core_subnet.simple_subnet[0].id
+    display_name           = var.subnet_display_name
+    assign_public_ip       = local.is_public_subnet
+    hostname_label         = var.hostname_label
+    skip_source_dest_check = false
+    nsg_ids                = [oci_core_network_security_group.simple_nsg.id]
+  }
+
+  source_details {
+    source_type = "image"
+    #use a marketplace image or custom image:
+    source_id   = local.compute_image_id
+  }
+
+```
+
+2. Run your tests using the Terraform CLI or build a new package and deploy on ORM.
