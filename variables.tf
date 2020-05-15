@@ -60,8 +60,8 @@ variable "vm_compute_shape" {
 }
 
 # only used for E3 Flex shape
-variable "vm_compute_shape_ocpus" {
-  description = "Number of OCPUs"
+variable "vm_flex_shape_ocpus" {
+  description = "Flex Shape OCPUs"
   default = 1 
 }
 
