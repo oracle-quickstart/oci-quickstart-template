@@ -186,7 +186,7 @@ In case you wanted to make changes to this template to use a Marketplace image r
 
 2. Modify [`compute.tf`](./compute.tf) set `source_details` to refer to `local.compute_image_id` rather than `platform_image_id`. The `local.compute_image_id` holds the logic to either refer to the marketplace image or a custom image, based on the `mp_subscription_enabled` flag.
 
-```bash
+```hcl
 resource "oci_core_instance" "simple-vm" {
   availability_domain = local.availability_domain
   compartment_id      = var.compute_compartment_ocid
