@@ -9,7 +9,7 @@ locals {
   # local.is_public_subnet referenced in compute.tf
   is_public_subnet = var.subnet_type == var.subnet_type_enum["PUBLIC_SUBNET"] ? true : false
 
-  # Logic to select Oracle Autonomous Linux 7 platform image (latest image available)
+  # Logic to select Oracle Autonomous Linux 7 platform image (version pegged in data source filter)
   platform_image_id = data.oci_core_images.autonomous_ol7.images[0].id
 
   # Logic to choose a custom image or a marketplace image.
