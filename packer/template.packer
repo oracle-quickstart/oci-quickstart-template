@@ -1,0 +1,43 @@
+{
+  "variables": {
+      "availibilty_domain": "{{env `PACKER_availibilty_domain`}}",
+      "base_image_ocid": "{{env `PACKER_base_image_ocid`}}",
+      "compartment_ocid": "{{env `PACKER_compartment_ocid`}}",
+      "image_name": "{{env `PACKER_image_name`}}",
+      "shape": "{{env `PACKER_shape`}}",
+      "ssh_username": "{{env `PACKER_ssh_username`}}",
+      "subnet_ocid": "{{env `PACKER_subnet_ocid`}}",
+      "type": "{{env `PACKER_type`}}"
+  },
+  "builders": [
+    {
+      "availability_domain": "{{user `availibilty_domain`}}",
+      "base_image_ocid": "{{user `base_image_ocid`}}",
+      "compartment_ocid": "{{user `compartment_ocid`}}",
+      "image_name": "{{user `image_name`}}",
+      "shape": "{{user `shape`}}",
+      "ssh_username": "{{user `ssh_username`}}",
+      "subnet_ocid": "{{user `subnet_ocid`}}",
+      "type": "oracle-oci"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "expect_disconnect": "true",
+      "inline": [
+        "cd ~",
+        "echo Hello World!",
+        "touch foobar.txt" 
+      ]
+    },
+    {
+      "type": "shell",
+      "script": "installer.sh"
+    },
+    {
+      "type": "shell",
+      "script": "cleanup.sh"
+    }
+  ]
+}
