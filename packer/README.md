@@ -1,5 +1,5 @@
 # oci-quickstart-template
-
+Packer is a tool provided by Hashicorp that allows you to automate creation of your machine images.
 ## Specifications
  * oci CLI v2.9.7 ([download](https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingtheCLI))
  * packer v1.5.4  ([download](https://packer.io/intro/getting-started/install.html))
