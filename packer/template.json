@@ -1,23 +1,23 @@
 {
   "variables": {
       "availibilty_domain": "{{env `PACKER_availibilty_domain`}}",
-      "base_image_ocid": "{{env `PACKER_base_image_ocid`}}",
       "compartment_ocid": "{{env `PACKER_compartment_ocid`}}",
-      "image_name": "{{env `PACKER_image_name`}}",
-      "shape": "{{env `PACKER_shape`}}",
-      "ssh_username": "{{env `PACKER_ssh_username`}}",
       "subnet_ocid": "{{env `PACKER_subnet_ocid`}}",
-      "type": "{{env `PACKER_type`}}"
+      "availibilty_domain": "IYfK:US-ASHBURN-AD-1",
+      "base_image_ocid": "ocid1.image.oc1.iad.aaaaaaaa6tp7lhyrcokdtf7vrbmxyp2pctgg4uxvt4jz4vc47qoc2ec4anha",
+      "shape": "VM.Standard2.1",
+      "ssh_username": "opc",
+      "type": "oracle-oci",
+      "my_secret": "{{env `PACKER_my_secret`}}"
   },
   "builders": [
     {
       "availability_domain": "{{user `availibilty_domain`}}",
-      "base_image_ocid": "{{user `base_image_ocid`}}",
       "compartment_ocid": "{{user `compartment_ocid`}}",
-      "image_name": "{{user `image_name`}}",
+      "subnet_ocid": "{{user `subnet_ocid`}}",
+      "base_image_ocid": "{{user `base_image_ocid`}}",
       "shape": "{{user `shape`}}",
       "ssh_username": "{{user `ssh_username`}}",
-      "subnet_ocid": "{{user `subnet_ocid`}}",
       "type": "oracle-oci"
     }
   ],
@@ -28,6 +28,7 @@
       "inline": [
         "cd ~",
         "echo Hello World!",
+        "echo {{user `my_secret`}} > /dev/null",
         "touch foobar.txt" 
       ]
     },
