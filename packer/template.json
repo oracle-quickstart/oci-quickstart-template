@@ -2,18 +2,17 @@
   "variables": {
       "compartment_ocid": "{{env `PACKER_compartment_ocid`}}",
       "subnet_ocid": "{{env `PACKER_subnet_ocid`}}",
-      "my_secret": "{{env `PACKER_my_secret`}}",
       "availibilty_domain": "IYfK:US-ASHBURN-AD-1",
       "base_image_ocid": "ocid1.image.oc1.iad.aaaaaaaa6tp7lhyrcokdtf7vrbmxyp2pctgg4uxvt4jz4vc47qoc2ec4anha",
       "shape": "VM.Standard2.1",
       "ssh_username": "opc",
-      "type": "oracle-oci"
+      "type": "oracle-oci",
+      "my_secret": "{{env `PACKER_my_secret`}}"
   },
   "builders": [
     {
       "compartment_ocid": "{{user `compartment_ocid`}}",
       "subnet_ocid": "{{user `subnet_ocid`}}",
-      "my_secret": "{{user `my_secret`}}",
       "availability_domain": "{{user `availibilty_domain`}}",
       "base_image_ocid": "{{user `base_image_ocid`}}",
       "shape": "{{user `shape`}}",
@@ -28,6 +27,7 @@
       "inline": [
         "cd ~",
         "echo Hello World!",
+        "echo {{user `my_secret`}} > /dev/null",
         "touch foobar.txt" 
       ]
     },
