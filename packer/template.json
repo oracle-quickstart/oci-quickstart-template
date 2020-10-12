@@ -1,5 +1,6 @@
 {
   "variables": {
+      "availibilty_domain": "{{env `PACKER_availibilty_domain`}}",
       "compartment_ocid": "{{env `PACKER_compartment_ocid`}}",
       "subnet_ocid": "{{env `PACKER_subnet_ocid`}}",
       "availibilty_domain": "IYfK:US-ASHBURN-AD-1",
@@ -11,9 +12,9 @@
   },
   "builders": [
     {
+      "availability_domain": "{{user `availibilty_domain`}}",
       "compartment_ocid": "{{user `compartment_ocid`}}",
       "subnet_ocid": "{{user `subnet_ocid`}}",
-      "availability_domain": "{{user `availibilty_domain`}}",
       "base_image_ocid": "{{user `base_image_ocid`}}",
       "shape": "{{user `shape`}}",
       "ssh_username": "{{user `ssh_username`}}",
