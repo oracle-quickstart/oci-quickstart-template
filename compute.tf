@@ -10,7 +10,7 @@ resource "oci_core_instance" "simple-vm" {
         ocpus = shape_config.value
       }
   }
-  
+
 
   create_vnic_details {
     subnet_id              = local.use_existing_network ? var.subnet_id : oci_core_subnet.simple_subnet[0].id
@@ -28,6 +28,12 @@ resource "oci_core_instance" "simple-vm" {
     #source_id   = local.compute_image_id
   }
 
+  lifecycle {
+    ignore_changes = [
+      source_details[0].source_id
+    ]
+  }
+  
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
     user_data           = base64encode(file("./scripts/example.sh"))
