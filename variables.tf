@@ -62,12 +62,12 @@ variable "vm_compute_shape" {
 # only used for E3 Flex shape
 variable "vm_flex_shape_ocpus" {
   description = "Flex Shape OCPUs"
-  default = 1 
+  default = 1
 }
 
 variable "availability_domain_name" {
   default     = ""
-  description = "Availability Domain"
+  description = "Availability Domain name, if non-empty takes precedence over availability_domain_number"
 }
 
 variable "availability_domain_number" {
@@ -115,7 +115,7 @@ variable "vcn_dns_label" {
 variable "subnet_type" {
   description = "Choose between private and public subnets"
   default     = "Public Subnet"
-  #or  
+  #or
   #default     = "Private Subnet"
 }
 

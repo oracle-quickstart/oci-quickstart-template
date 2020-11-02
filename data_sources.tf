@@ -10,13 +10,6 @@ data "oci_core_images" "autonomous_ol7" {
   sort_order       = "DESC"
   state            = "AVAILABLE"
 
-  # filter restricts to pegged version regardless of region
-  filter {
-    name   = "display_name"
-    values = ["Oracle-Autonomous-Linux-7.8-2020.04-0"]
-    regex  = false
-  }
-
   # filter restricts to OL 7
   filter {
     name   = "operating_system_version"
