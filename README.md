@@ -15,7 +15,7 @@ This Quick Start uses [OCI Resource Manager](https://docs.cloud.oracle.com/iaas/
 
 [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oci-quickstart-template/archive/master.zip)
 
-Note, if you use this template repo to create another repo you'll need to change the link for the button to point at your repo and not this repo.
+Note, if you use this template to create another repo you'll need to change the link for the button to point at your repo.
 
 ## Local Development
 
