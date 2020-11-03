@@ -21,6 +21,11 @@ Note, if you use this template to create another repo you'll need to change the 
 
 First off we'll need to do some pre deploy setup.  That's all detailed [here](https://github.com/oracle/oci-quickstart-prerequisites).
 
+Note, the instructions below build a `.zip` file from you local copy for use in ORM.
+If you want to not use ORM and deploy with the terraform CLI you need to rename
+`provider.tf.cli -> provider.tf`. This is because authentication works slightly
+differently in ORM vs the CLI. This file is ignored by the build process below.
+
 Make sure you have terraform v0.12+ cli installed and accessible from your terminal.
 
 ```bash
