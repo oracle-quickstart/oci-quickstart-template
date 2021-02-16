@@ -4,7 +4,7 @@ Packer is a tool provided by Hashicorp that allows you to automate creation of y
  * oci CLI v2.9.7 ([download](https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingtheCLI))
  * packer v1.5.4  ([download](https://packer.io/intro/getting-started/install.html))
  
-Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm) to learn more about how to configure your OCI CLI.
+Click [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm) to learn more about how to configure your OCI CLI.
  
 ## Instructions
 1. Clone the oci-quickstart-template repository:
@@ -12,14 +12,14 @@ Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/clicon
 $> git clone https://github.com/oracle-quickstart/oci-quickstart-template.git
 $> cd oci-quickstart-template
 ```
-2. Before we can build the image, we must create network components in our tenancy for the image to connect to. Log in to your tenancy and go to *Menu -> Networking -> Virtual Cloud Network -> Networking Quickstart*. [Follow the Networking Quickstart to create a network](https://docs.cloud.oracle.com/en-us/iaas/Content/Network/Tasks/quickstartnetworking.htm)
+2. Before we can build the image, we must create network components in our tenancy for the image to connect to. Log in to your tenancy and go to *Menu -> Networking -> Virtual Cloud Network -> Start VCN Wizard*. Default values should be fine. [Follow the Networking Quickstart to create a network](https://docs.cloud.oracle.com/en-us/iaas/Content/Network/Tasks/quickstartnetworking.htm)
 
-3. Fill in the ```env_vars.sh``` file with the appriopriate values from your tenanacy. [See below](#how-to-determine-environment-variables) for instructions on ways to obtain these values:
+3. Create a file called ```env_vars.sh``` and fill it with appriopriate values from your tenanacy. [See below](#how-to-determine-environment-variables) for instructions on ways to obtain these values:
 ```
 # Required for the OCI Provider
 export PACKER_availibilty_domain=""
 export PACKER_compartment_ocid=""
-export PACKER_base_image_ocid="ocid1.image.oc1.iad.aaaaaaaa6tp7lhyrcokdtf7vrbmxyp2pctgg4uxvt4jz4vc47qoc2ec4anha"
+export PACKER_base_image_ocid="ocid1.image.oc1.iad.aaaaaaaa6tp7...."
 export PACKER_image_name="Partner_Image"
 export PACKER_shape="VM.Standard2.1"
 export PACKER_ssh_username="opc"
