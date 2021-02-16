@@ -10,7 +10,7 @@ Click [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.h
 1. Clone the oci-quickstart-template repository:
 ```
 $> git clone https://github.com/oracle-quickstart/oci-quickstart-template.git
-$> cd oci-quickstart-template
+$> cd oci-quickstart-template/packer
 ```
 2. Before we can build the image, we must create network components in our tenancy for the image to connect to. Log in to your tenancy and go to *Menu -> Networking -> Virtual Cloud Network -> Start VCN Wizard*. Default values should be fine. [Follow the Networking Quickstart to create a network](https://docs.cloud.oracle.com/en-us/iaas/Content/Network/Tasks/quickstartnetworking.htm)
 
