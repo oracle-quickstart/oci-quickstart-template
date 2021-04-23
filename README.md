@@ -9,25 +9,31 @@ Simple can be customized to subscribe and launch Marketplace images, Platform im
 
 This repo is under active development.  Building open source software is a community effort.  We're excited to engage with the community building this.
 
-## Prerequisites
+## Resource Manager Deployment
+
+This Quick Start uses [OCI Resource Manager](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm) to make deployment easy, sign up for an [OCI account](https://cloud.oracle.com/en_US/tryit) if you don't have one, and just click the button below:
+
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oci-quickstart-template/archive/master.zip)
+
+After logging into the console you'll be taken through the same steps described 
+in the [Deploy](#deploy) section below.
+
+Note, if you use this template to create another repo you'll need to change the link for the button to point at your repo.
+
+## Local Development
 
 First off we'll need to do some pre deploy setup.  That's all detailed [here](https://github.com/oracle/oci-quickstart-prerequisites).
 
-## Resource Manager Deployment
-
-This Quick Start uses [OCI Resource Manager](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm) to make deployment quite easy. Simply `build` your package and follow the [Resource Manager instructions](https://docs.cloud.oracle.com/en-us/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#console) for how to create a stack.  Prior to building the Stack, you may want to modify some parts of the deployment detailed in the sections below.
+Note, the instructions below build a `.zip` file from you local copy for use in ORM.
+If you want to not use ORM and deploy with the terraform CLI you need to rename
+`provider.tf.cli -> provider.tf`. This is because authentication works slightly
+differently in ORM vs the CLI. This file is ignored by the build process below.
 
 Make sure you have terraform v0.12+ cli installed and accessible from your terminal.
 
-```bash
-terraform -v
-
-Terraform v0.12.24
-+ provider.null v2.1.2
-+ provider.oci v3.71.0
-```
-
 ### Build
+
+Simply `build` your package and follow the [Resource Manager instructions](https://docs.cloud.oracle.com/en-us/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#console) for how to create a stack.  Prior to building the Stack, you may want to modify some parts of the deployment detailed below.
 
 In order to `build` the zip file with the latest changes you made to this code, you can simply go to [build-orm](./build-orm) folder and use terraform to generate a new zip file:
 
@@ -39,18 +45,14 @@ $ terraform init
 Initializing the backend...
 
 Initializing provider plugins...
-- Checking for available provider plugins...
-- Downloading plugin for provider "archive" (hashicorp/archive) 1.3.0...
+- Finding latest version of hashicorp/archive...
+- Installing hashicorp/archive v2.1.0...
+- Installed hashicorp/archive v2.1.0 (signed by HashiCorp)
 
-The following providers do not have any version constraints in configuration,
-so the latest version was installed.
-
-To prevent automatic upgrades to new major versions that may contain breaking
-changes, it is recommended to add version = "..." constraints to the
-corresponding provider blocks in configuration, with the constraint strings
-suggested below.
-
-* provider.archive: version = "~> 1.3"
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
 
 Terraform has been successfully initialized!
 
@@ -80,20 +82,20 @@ $ unzip -l dist/orm.zip
 Archive:  dist/orm.zip
   Length      Date    Time    Name
 ---------  ---------- -----   ----
-     5324  01-01-2049 00:00   README_simple.md
      1140  01-01-2049 00:00   compute.tf
       680  01-01-2049 00:00   data_sources.tf
      1632  01-01-2049 00:00   image_subscription.tf
      1359  01-01-2049 00:00   locals.tf
-    13540  01-01-2049 00:00   marketplace.yaml
+    13548  01-01-2049 00:00   marketplace.yaml
      2001  01-01-2049 00:00   network.tf
      2478  01-01-2049 00:00   nsg.tf
+      830  01-01-2049 00:00   oci_images.tf
      1092  01-01-2049 00:00   outputs.tf
        44  01-01-2049 00:00   scripts/example.sh
      4848  01-01-2049 00:00   variables.tf
-       46  01-01-2049 00:00   versions.tf
+      311  01-01-2049 00:00   versions.tf
 ---------                     -------
-    34184                     12 files
+    29963                     12 files
 ```
 
 ### Deploy
@@ -122,7 +124,7 @@ Archive:  dist/orm.zip
 
 |          VARIABLE          |           DESCRIPTION                                                 |
 |----------------------------|-----------------------------------------------------------------------|
-|NETWORK COMPARTMENT         | Compartment for all Virtual Cloud Nettwork resources|
+|NETWORK COMPARTMENT         | Compartment for all Virtual Cloud Network resources|
 |NETWORK STRATEGY            | `Create New VCN and Subnet`: Create new network resources during apply. <br> `Use Existing VCN and Subnet`: Let user select pre-existent network resources.|
 |CONFIGURATION STRATEGY      | `Use Recommended Configuration`: Use default configuration defined by the Terraform template. <br> `Customize Network Configuration`: Allow user to customize network configuration such as name, dns label, cidr block for VCN and Subnet.|
 
@@ -215,6 +217,32 @@ resource "oci_core_instance" "simple-vm" {
     #use a marketplace image or custom image:
     source_id   = local.compute_image_id
   }
+
+```
+2. Modify [`oci_images.tf`](./oci_images.tf) set `marketplace_source_images` map variable to refer to the marketplace images your Stack will launch.
+
+```hcl
+
+variable "marketplace_source_images" {
+  type = map(object({
+    ocid = string
+    is_pricing_associated = bool
+    compatible_shapes = list(string)
+  }))
+  default = {
+    main_mktpl_image = {
+      ocid = "ocid1.image.oc1..<unique_id>"
+      is_pricing_associated = true
+      compatible_shapes = []
+    }
+    #Remove comment and add as many marketplace images that your stack references be replicated to other realms
+    #supporting_image = {
+    #  ocid = "ocid1.image.oc1..<unique_id>"
+    #  is_pricing_associated = false
+    #  compatible_shapes = ["VM.Standard2.2", "VM.Standard.E2.1.Micro"]
+    #}
+  }
+}
 
 ```
 

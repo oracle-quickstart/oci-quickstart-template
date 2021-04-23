@@ -27,6 +27,12 @@ resource "oci_core_instance" "simple-vm" {
     #use a marketplace image or custom image:
     #source_id   = local.compute_image_id
   }
+  
+  lifecycle {
+    ignore_changes = [
+      source_details[0].source_id
+    ]
+  }
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key

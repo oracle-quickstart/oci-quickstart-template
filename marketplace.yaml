@@ -9,10 +9,10 @@ version: "20190304"
 # (Optional)
 logoUrl: https://cloudmarketplace.oracle.com/marketplace/content?contentId=71617800
 
-# Used in Application Information tab to Hyperlink Title and Logo to the Marketplace 
+# Used in Application Information tab to Hyperlink Title and Logo to the Marketplace
 # Listing.
 # Also used to link to Listing Usage section for "View Instructions".
-# (Optional) If it is missing, Application Information uses the 
+# (Optional) If it is missing, Application Information uses the
 # "marketplace-listing-id" tag for the same purpose.
 source:
   type: marketplace
@@ -20,71 +20,72 @@ source:
 
 locale: "en"
 variableGroups:
-  - title: "Hidden Variable Group"    
+  - title: "Hidden Variable Group"
     visible: false
     variables:
-#"variables used internally - not exposed to end user"    
-      - tenancy_ocid 
-      - region 
+#"variables used internally - not exposed to end user"
+      - tenancy_ocid
+      - region
       - mp_listing_id
       - mp_listing_resource_id
-      - mp_listing_resource_version   
-      - availability_domain_number          
-      - mp_subscription_enabled      
+      - mp_listing_resource_version
+      - availability_domain_number
+      - mp_subscription_enabled
       - network_strategy_enum
       - subnet_type_enum
       - nsg_config_enum
       #change compute.tf and move custom_image_id to Compute group in case you want to use a custom_image
       - custom_image_id
+      - marketplace_source_images
 
   - title: "Compute Configuration"
     variables:
       - compute_compartment_ocid
       - vm_display_name
-      - hostname_label      
+      - hostname_label
       - vm_compute_shape
       - vm_flex_shape_ocpus
       - availability_domain_name
       - ssh_public_key
-      
+
 
   - title: "Virtual Cloud Network"
     variables:
       - network_compartment_ocid
       - network_strategy
-      - network_configuration_strategy      
-      - vcn_id 
-      - vcn_display_name       
+      - network_configuration_strategy
+      - vcn_id
+      - vcn_display_name
       - vcn_dns_label
-      - vcn_cidr_block              
+      - vcn_cidr_block
 
   - title: "Simple Subnet"
     visible: #($network_strategy  == ""Use Existing VCN and Subnet"") OR (network_configuration_strategy ==  "Customize Network Configuration")
       or:
-        - eq:         
-          - network_strategy 
-          - "Use Existing VCN and Subnet"    
+        - eq:
+          - network_strategy
+          - "Use Existing VCN and Subnet"
         - eq:
           - network_configuration_strategy
           - "Customize Network Configuration"
     variables:
       - subnet_type
-      - subnet_id 
-      - subnet_display_name             
+      - subnet_id
+      - subnet_display_name
       - subnet_dns_label
-      - subnet_cidr_block            
+      - subnet_cidr_block
       - nsg_configuration_strategy
 
   - title: "Network Security Group"
     visible: #($nsg_configuration_strategy  ==  "Customize Network Security Group")
       eq:
-        - nsg_configuration_strategy 
+        - nsg_configuration_strategy
         - "Customize Network Security Group"
     variables:
       - nsg_display_name
       - nsg_source_cidr
       - nsg_ssh_port
-      - nsg_http_port                              
+      - nsg_http_port
       - nsg_https_port
 
   - title: "Additional Configuration Options"
@@ -118,8 +119,8 @@ variables:
     required: true
 
   availability_domain_number:
-    type: string    
-    required: false    
+    type: string
+    required: false
     description: Availability Domain Number (Not used)
 
 ######################################################
@@ -127,8 +128,8 @@ variables:
 ######################################################
 
   mp_listing_id:
-    type: string    
-    required: true    
+    type: string
+    required: true
     description: Marketplace Listing ID
 
   mp_listing_resource_id:
@@ -191,7 +192,7 @@ variables:
     description: Availability Domain
 
   ssh_public_key:
-    type: string
+    type: oci:core:ssh:publickey
     required: true
     title: Public SSH Key string
     description: Public SSH Key to access VM via SSH
@@ -214,7 +215,7 @@ variables:
   vm_flex_shape_ocpus:
     visible: #($vm_compute_shape  == ""VM.Standard.E3.Flex"")
       eq:
-        - vm_compute_shape 
+        - vm_compute_shape
         - "VM.Standard.E3.Flex"
     type: integer
     default: 2
@@ -222,12 +223,12 @@ variables:
     minimum: 1
     maximum: 64
     required: false
-    
+
   hostname_label:
     type: string
     required: false
     title: DNS Hostname Label
-      
+
 
 ######################################################
 ##############     NETWORK VARIABLES     #############
@@ -238,7 +239,7 @@ variables:
     required: true
     title: Network Compartment
     description: The compartment in which to create all Network resources
-    default: compartment_ocid    
+    default: compartment_ocid
 
 
   # Network Type Options
@@ -257,7 +258,7 @@ variables:
   network_configuration_strategy:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")
       eq:
-        - network_strategy 
+        - network_strategy
         - "Create New VCN and Subnet"
     type: enum
     title: Configuration Strategy
@@ -270,13 +271,13 @@ variables:
 
 
 
-######## VCN ########    
+######## VCN ########
 
   vcn_display_name:
     visible: #($network_strategy  == ""Create New VCN and Subnet"") AND (network_configuration_strategy ==  "Customize Network Configuration")
       and:
-        - eq: 
-          - network_strategy 
+        - eq:
+          - network_strategy
           - "Create New VCN and Subnet"
         - eq:
           - network_configuration_strategy
@@ -289,11 +290,11 @@ variables:
   vcn_id:
     visible: #($network_strategy  == "Use Existing VCN and Subnet")
       eq:
-        - network_strategy 
+        - network_strategy
         - "Use Existing VCN and Subnet"
     type: oci:core:vcn:id
     dependsOn:
-      compartmentId: network_compartment_ocid 
+      compartmentId: network_compartment_ocid
     required: true
     title: Existing VCN
     description: An existing Virtual Cloud Network (VCN) in which to create the compute instances, network resources, and load balancers. If not specified, a new VCN is created.
@@ -301,8 +302,8 @@ variables:
   vcn_cidr_block:
     visible: #($network_strategy  == ""Create New VCN and Subnet"") AND (network_configuration_strategy ==  "Customize Network Configuration")
       and:
-        - eq: 
-          - network_strategy 
+        - eq:
+          - network_strategy
           - "Create New VCN and Subnet"
         - eq:
           - network_configuration_strategy
@@ -316,8 +317,8 @@ variables:
   vcn_dns_label:
     visible: #($network_strategy  == ""Create New VCN and Subnet"") AND (network_configuration_strategy ==  "Customize Network Configuration")
       and:
-        - eq: 
-          - network_strategy 
+        - eq:
+          - network_strategy
           - "Create New VCN and Subnet"
         - eq:
           - network_configuration_strategy
@@ -326,13 +327,13 @@ variables:
     required: true
     title: DNS Label
     maxLenght: 15
-    description: VCN DNS Label. Only letters and numbers, starting with a letter. 15 characters max.    
+    description: VCN DNS Label. Only letters and numbers, starting with a letter. 15 characters max.
 
 ######## MANAGEMENT SUBNET ########
   subnet_type:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")
       eq:
-        - network_strategy 
+        - network_strategy
         - "Create New VCN and Subnet"
     type: enum
     title: Subnet Type
@@ -342,11 +343,11 @@ variables:
       - "Public Subnet"
     required: true
     default: "Public Subnet"
-    
+
   subnet_display_name:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")
       eq:
-        - network_strategy 
+        - network_strategy
         - "Create New VCN and Subnet"
     type: string
     required: true
@@ -356,7 +357,7 @@ variables:
   subnet_cidr_block:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")
       eq:
-        - network_strategy 
+        - network_strategy
         - "Create New VCN and Subnet"
     type: string
     pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
@@ -367,12 +368,12 @@ variables:
   subnet_id:
     visible: #($network_strategy  == "Use Existing VCN and Subnet")
       eq:
-        - network_strategy 
-        - "Use Existing VCN and Subnet"    
+        - network_strategy
+        - "Use Existing VCN and Subnet"
     type: oci:core:subnet:id
     dependsOn:
-      vcnId: vcn_id 
-      compartmentId: network_compartment_ocid 
+      vcnId: vcn_id
+      compartmentId: network_compartment_ocid
     default: ''
     required: true
     title: Existing Subnet
@@ -381,13 +382,13 @@ variables:
   subnet_dns_label:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")
       eq:
-        - network_strategy 
+        - network_strategy
         - "Create New VCN and Subnet"
     type: string
     required: true
     title: DNS Label
     maxLenght: 15
-    description: Subnet DNS Label. Only letters and numbers, starting with a letter. 15 characters max.    
+    description: Subnet DNS Label. Only letters and numbers, starting with a letter. 15 characters max.
 
 ######################################################
 ##############    SECURITY VARIABLES     #############
@@ -410,7 +411,7 @@ variables:
     type: string
     required: false
     title: Name
-    
+
   nsg_ssh_port:
     type: number
     required: false
@@ -466,10 +467,10 @@ outputs:
       eq:
       - mgmt_subnet_type
       - "Public Subnet"
-  
+
   instance_private_ip:
     type: link
     title: Private IP
     visible: true
-  
+
 primaryOutputButton: instance_https_url
