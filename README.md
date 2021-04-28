@@ -15,7 +15,7 @@ This Quick Start uses [OCI Resource Manager](https://docs.cloud.oracle.com/iaas/
 
 [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oci-quickstart-template/archive/master.zip)
 
-After logging into the console you'll be taken through the same steps described 
+After logging into the console you'll be taken through the same steps described
 in the [Deploy](#deploy) section below.
 
 Note, if you use this template to create another repo you'll need to change the link for the button to point at your repo.
@@ -29,7 +29,7 @@ If you want to not use ORM and deploy with the terraform CLI you need to rename
 `provider.tf.cli -> provider.tf`. This is because authentication works slightly
 differently in ORM vs the CLI. This file is ignored by the build process below.
 
-Make sure you have terraform v0.12+ cli installed and accessible from your terminal.
+Make sure you have terraform v0.14+ cli installed and accessible from your terminal.
 
 ### Build
 
@@ -201,7 +201,7 @@ resource "oci_core_instance" "simple-vm" {
         ocpus = shape_config.value
       }
   }
-  
+
 
   create_vnic_details {
     subnet_id              = local.use_existing_network ? var.subnet_id : oci_core_subnet.simple_subnet[0].id
