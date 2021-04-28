@@ -18,6 +18,7 @@ This Quick Start uses [OCI Resource Manager](https://docs.cloud.oracle.com/iaas/
 After logging into the console you'll be taken through the same steps described
 in the [Deploy](#deploy) section below.
 
+
 Note, if you use this template to create another repo you'll need to change the link for the button to point at your repo.
 
 ## Local Development
