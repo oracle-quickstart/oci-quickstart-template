@@ -36,6 +36,7 @@ variableGroups:
       - nsg_config_enum
       #change compute.tf and move custom_image_id to Compute group in case you want to use a custom_image
       - custom_image_id
+      - marketplace_source_images
 
   - title: "Compute Configuration"
     variables:

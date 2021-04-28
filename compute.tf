@@ -27,6 +27,12 @@ resource "oci_core_instance" "simple-vm" {
     #use a marketplace image or custom image:
     #source_id   = local.compute_image_id
   }
+  
+  lifecycle {
+    ignore_changes = [
+      source_details[0].source_id
+    ]
+  }
 
   lifecycle {
     ignore_changes = [
