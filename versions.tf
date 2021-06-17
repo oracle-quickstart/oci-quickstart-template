@@ -1,11 +1,12 @@
-#Version Syntax MAYOR.MINOR.PATH,  with a Min version ~<MAYOR.MINOR.0 (zero) and a Max tested version MAYOR.MINOR
+# Pesimistic ~> opoerator allows only 0.14.x, current max version supported by ORM
+# https://www.terraform.io/docs/language/expressions/version-constraints.html
 
 terraform {
- required_version = "~> 0.14.0, < 0.15"
+ required_version = "~> 0.14.0"
  required_providers {
      # Recommendation from ORM / OCI provider teams
           oci = {
-             version ="~> 4.21.0"
+             version =">= 4.21.0"
           }
  }
-} 
+}
