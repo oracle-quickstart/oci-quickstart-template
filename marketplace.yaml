@@ -210,7 +210,8 @@ variables:
     required: true
     dependsOn:
       compartmentId: compute_compartment_ocid
-      imageId: mp_listing_resource_id
+      #Comment in to restrict to marketplace image allowed shapes 
+      #imageId: mp_listing_resource_id
 
   vm_flex_shape_ocpus:
     visible: #($vm_compute_shape  == ""VM.Standard.E3.Flex"")

@@ -39,7 +39,7 @@ resource "oci_core_instance" "simple-vm" {
       source_details[0].source_id
     ]
   }
-  
+
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
     user_data           = base64encode(file("./scripts/example.sh"))
