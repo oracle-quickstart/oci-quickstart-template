@@ -1,6 +1,6 @@
 resource "oci_core_instance" "simple-vm" {
   availability_domain = local.availability_domain
-  compartment_id      = var.compute_compartment_ocid
+  compartment_id      = var.compartment_ocid
   display_name        = var.vm_display_name
   shape               = var.vm_compute_shape
 
@@ -39,5 +39,5 @@ resource "oci_core_instance" "simple-vm" {
     user_data           = base64encode(file("./scripts/example.sh"))
   }
 
-  freeform_tags = map(var.tag_key_name, var.tag_value)
+  freeform_tags = {(var.tag_key_name) = (var.tag_value)}
 }

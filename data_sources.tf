@@ -4,7 +4,7 @@ data "oci_identity_availability_domain" "ad" {
 }
 
 data "oci_core_images" "autonomous_ol7" {
-  compartment_id   = var.compute_compartment_ocid
+  compartment_id   = var.compartment_ocid
   operating_system = "Oracle Autonomous Linux"
   sort_by          = "TIMECREATED"
   sort_order       = "DESC"

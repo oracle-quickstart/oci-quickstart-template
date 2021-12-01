@@ -1,12 +1,12 @@
 resource "oci_core_network_security_group" "simple_nsg" {
   #Required
-  compartment_id = var.network_compartment_ocid
+  compartment_id = var.compartment_ocid
   vcn_id         = local.use_existing_network ? var.vcn_id : oci_core_vcn.simple.0.id
 
   #Optional
   display_name = var.nsg_display_name
 
-  freeform_tags = map(var.tag_key_name, var.tag_value)
+  freeform_tags = {(var.tag_key_name) = (var.tag_value)}
 }
 
 # Allow Egress traffic to all networks

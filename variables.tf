@@ -170,12 +170,8 @@ variable "nsg_http_port" {
 # Additional Configuration #
 ############################
 
-variable "compute_compartment_ocid" {
+variable "compartment_ocid" {
   description = "Compartment where Compute and Marketplace subscription resources will be created"
-}
-
-variable "network_compartment_ocid" {
-  description = "Compartment where Network resources will be created"
 }
 
 variable "tag_key_name" {
