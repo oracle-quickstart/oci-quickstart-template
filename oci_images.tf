@@ -1,5 +1,5 @@
 #File used only if Stack is a Marketplace Stack
-#Update based on Marketplace Listing - App Install Package - Image ocid
+#Update based on Marketplace Listing - App Install Package - Image Oracle Cloud Identifier
 #Each element is a single image from Marketpalce Catalog. Elements' name in map is arbitrary 
 
 
