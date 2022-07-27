@@ -13,7 +13,7 @@ This repo is under active development.  Building open source software is a commu
 
 This Quick Start uses [OCI Resource Manager](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm) to make deployment easy, sign up for an [OCI account](https://cloud.oracle.com/en_US/tryit) if you don't have one, and just click the button below:
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oci-quickstart-template/archive/master.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oci-quickstart-template/archive/master.zip)
 
 After logging into the console you'll be taken through the same steps described
 in the [Deploy](#deploy) section below.
@@ -87,7 +87,7 @@ Archive:  dist/orm.zip
       680  01-01-2049 00:00   data_sources.tf
      1632  01-01-2049 00:00   image_subscription.tf
      1359  01-01-2049 00:00   locals.tf
-    13548  01-01-2049 00:00   marketplace.yaml
+    13548  01-01-2049 00:00   schema.yaml
      2001  01-01-2049 00:00   network.tf
      2478  01-01-2049 00:00   nsg.tf
       830  01-01-2049 00:00   oci_images.tf
