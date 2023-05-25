@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BASE_IMAGE=""
 ORACLE_LINUX="ORACLE_LINUX"
@@ -10,7 +10,7 @@ UBUNTU="UBUNTU"
 ##
 ## 1) Oracle Linux will have the oci-image-cleanup
 ##    script installed by default on the image.
-## 
+##
 ## 2) CentOS will have a /etc/redhat-release file.
 ##
 ## 3) Ubuntu distro will have the "Ubuntu" string
@@ -35,10 +35,8 @@ fi
 
 if [ "$BASE_IMAGE" == "$ORACLE_LINUX" ]; then
   sudo /usr/libexec/oci-image-cleanup -f
-elif [ "$BASE_IMAGE" == "$CENTOS" ]; then
+elif [[ "$BASE_IMAGE" == "$CENTOS" || "$BASE_IMAGE" == "$UBUNTU" ]]; then
   wget -P /tmp https://raw.githubusercontent.com/oracle/oci-utils/master/libexec/oci-image-cleanup
   chmod 700 /tmp/oci-image-cleanup
   sudo /tmp/oci-image-cleanup -f
 fi
-
-
