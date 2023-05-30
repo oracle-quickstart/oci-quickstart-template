@@ -12,8 +12,8 @@ If it is not installed you will see errors for undefined variables in later step
 ## Instructions
 1. Clone the oci-quickstart-template repository:
 ```
-$> git clone https://github.com/oracle-quickstart/oci-quickstart-template.git
-$> cd oci-quickstart-template/packer
+git clone https://github.com/oracle-quickstart/oci-quickstart-template.git
+cd oci-quickstart-template/packer
 ```
 2. Before we can build the image, we must create network components in our tenancy
 for an instance (or VM) to exist in. If you don't already have a VCN, log in to your tenancy and go to *Menu -> Networking -> Virtual Cloud Network -> Start VCN Wizard*. Default values should be fine.
@@ -29,18 +29,19 @@ export PACKER_my_secret=""
 ```
 4. Source the ```env_vars.sh``` file modified above:
 ```
-$> source env_vars.sh
+source env_vars.sh
 ```
 
 5. Validate the packer file:
 ```
-$> packer validate template.pkr.hcl
+packer validate template.pkr.hcl
 The configuration is valid.
 ```
 
 6. Create the image:
 ```
-$> packer build template.pkr.hcl   
+packer build template.pkr.hcl   
+
 oracle-oci.builder_vm: output will be in this color.
 
 ==> oracle-oci.builder_vm: Creating temporary ssh key for instance...
@@ -94,7 +95,7 @@ package. It clears ssh keys, logs, etc.
 
 All the 4 provisioners are just examples. You can edit them to install whatever applications are required. However, running the cleanup script is a best practice as it removes existing ssh keys and resets cloud-init so that instances booted from your custom image behave as if this is their first boot.
 
-If using this template to build an image for [OCI Marketplace](https://docs.oracle.com/en-us/iaas/Content/partner-portal/partner-portal_gs-what_s_oracle_cloud_marketplace_partner_portal.htm) _**you must run the cleanup script**_, if you do not the image will not pass validation.
+_**However, you must run the cleanup script**_ if using this template to build an image for [OCI Marketplace](https://docs.oracle.com/en-us/iaas/Content/partner-portal/partner-portal_gs-what_s_oracle_cloud_marketplace_partner_portal.htm), if you do not the image will not pass validation.
 
 ---
 
