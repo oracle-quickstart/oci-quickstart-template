@@ -10,6 +10,9 @@
 # Local .terraform lock files
 *.lock.*
 
+# modified env var example
+packer/env_vars.sh
+
 # General
 .DS_Store
 .AppleDouble
