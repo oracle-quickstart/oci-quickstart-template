@@ -98,6 +98,7 @@ All the 4 provisioners are just examples. You can edit them to install whatever 
 _**However, you must run the cleanup script**_ if using this template to build an image for [OCI Marketplace](https://docs.oracle.com/en-us/iaas/Content/partner-portal/partner-portal_gs-what_s_oracle_cloud_marketplace_partner_portal.htm), if you do not the image will not pass validation.
 
 Other provisioners, like a [local shell](https://developer.hashicorp.com/packer/docs/provisioners/shell-local) provisioner or an [ansible](https://developer.hashicorp.com/packer/plugins/provisioners/ansible/ansible) provisioner can be added.
+
 ---
 
 ## How to Determine Variables
