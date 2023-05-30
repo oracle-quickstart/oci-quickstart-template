@@ -93,10 +93,11 @@ package. It clears ssh keys, logs, etc.
 
 ### Changing the Build
 
-All the 4 provisioners are just examples. You can edit them to install whatever applications are required. However, running the cleanup script is a best practice as it removes existing ssh keys and resets cloud-init so that instances booted from your custom image behave as if this is their first boot.
+All the 4 provisioners are just examples. You can edit them to install whatever applications are required or remove them. However, running the cleanup script is a best practice as it removes existing ssh keys and resets cloud-init so that instances booted from your custom image behave as if this is their first boot.
 
 _**However, you must run the cleanup script**_ if using this template to build an image for [OCI Marketplace](https://docs.oracle.com/en-us/iaas/Content/partner-portal/partner-portal_gs-what_s_oracle_cloud_marketplace_partner_portal.htm), if you do not the image will not pass validation.
 
+Other provisioners, like a [local shell](https://developer.hashicorp.com/packer/docs/provisioners/shell-local) provisioner or an [ansible](https://developer.hashicorp.com/packer/plugins/provisioners/ansible/ansible) provisioner can be added.
 ---
 
 ## How to Determine Variables
