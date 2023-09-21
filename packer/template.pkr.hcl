@@ -61,6 +61,15 @@ locals {
   is_flex_shape = substr(var.shape, -5, -1) == ".Flex" ? [1] : []
 }
 
+packer {
+  required_plugins {
+    oracle = {
+      version = ">= 1.0.4"
+      source  = "github.com/hashicorp/oracle"
+    }
+  }
+}
+
 source "oracle-oci" "builder_vm" {
   image_name          = "${var.imgprefix}-${var.shape}-${local.timestamp}"
   availability_domain = var.availibilty_domain
