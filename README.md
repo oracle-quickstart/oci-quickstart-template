@@ -247,6 +247,8 @@ variable "marketplace_source_images" {
 
 ```
 
+2. Run your tests using the Terraform CLI or build a new package and deploy on ORM.
+
 ## Contributing
 
 *If your project has specific contribution requirements, update the CONTRIBUTING.md file to ensure those requirements are clearly explained*
@@ -269,6 +271,3 @@ Copyright (c) 2023 Oracle and/or its affiliates.
 
 Released under the Universal Permissive License v1.0 as shown at
 <https://oss.oracle.com/licenses/upl/>.
-
-
-2. Run your tests using the Terraform CLI or build a new package and deploy on ORM.
